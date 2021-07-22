@@ -24,6 +24,7 @@
 class AttendanceStatus < ApplicationRecord
   belongs_to :attendance
   belongs_to :criterion_status
+  belongs_to :criterion
 
-  validates :criterion_status_id, uniqueness: { scope: [:attendance_id] }
+  validates :criterion_id, uniqueness: { scope: [:attendance_id] }
 end
