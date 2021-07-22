@@ -1,7 +1,30 @@
 h1 Editing event
 
+p
+  strong Name:
+  = @event.name
+
+p
+  strong 参照用URL
+  = event_url(@event.ref_uuid)
+
+p
+  strong 編集用URL
+  = edit_event_url(@event.edit_uuid)
+
 == render 'form'
 
-=> link_to 'Show', @event
-'|
-=< link_to 'Back', events_path
+h2 ユーザーを追加する
+
+= form_with model: User.new, url: event_users_path(@event.edit_uuid) do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit
+
+h2 所属ユーザー
+
+- @event.users.each do |user|
+  = user.name
+  = link_to '削除', event_user_path(@event.edit_uuid, user.id), method: :delete
+  br

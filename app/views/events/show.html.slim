@@ -5,17 +5,11 @@ p
   = @event.name
 
 p
-  strong Ref uuid:
-  = @event.ref_uuid
+  strong 参照用URL
+  = event_url(@event.ref_uuid)
 
-p
-  strong Edit uuid:
-  = @event.edit_uuid
+h2 所属ユーザー
 
-p
-  strong Team:
-  = @event.team
-
-=> link_to 'Edit', edit_event_path(@event)
-'|
-=< link_to 'Back', events_path
+- @event.users.each do |user|
+  = user.name
+  br
