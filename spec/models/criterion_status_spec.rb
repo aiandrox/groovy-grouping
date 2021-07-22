@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_criterion_statuses_on_criterion_id  (criterion_id)
+#  index_criterion_statuses_on_criterion_id_and_name  (criterion_id,name) UNIQUE
 #
 # Foreign Keys
 #

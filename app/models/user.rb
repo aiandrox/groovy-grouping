@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_users_on_team_id  (team_id)
+#  index_users_on_team_id_and_name  (team_id,name) UNIQUE
 #
 # Foreign Keys
 #
@@ -22,5 +22,5 @@ class User < ApplicationRecord
   has_many :attendances, dependent: :nullify
   has_many :events, through: :attendances
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { scope: [:team_id] }
 end

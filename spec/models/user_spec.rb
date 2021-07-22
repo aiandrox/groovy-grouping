@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_users_on_team_id  (team_id)
+#  index_users_on_team_id_and_name  (team_id,name) UNIQUE
 #
 # Foreign Keys
 #

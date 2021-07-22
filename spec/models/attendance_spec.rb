@@ -10,8 +10,8 @@
 #
 # Indexes
 #
-#  index_attendances_on_event_id  (event_id)
-#  index_attendances_on_user_id   (user_id)
+#  fk_rails_777eb7170a                        (event_id)
+#  index_attendances_on_user_id_and_event_id  (user_id,event_id) UNIQUE
 #
 # Foreign Keys
 #

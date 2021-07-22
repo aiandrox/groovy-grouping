@@ -15,9 +15,11 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
   create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "attendance_id", null: false
     t.bigint "criterion_status_id", null: false
+    t.bigint "criterion_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["attendance_id"], name: "index_attendance_statuses_on_attendance_id"
+    t.index ["attendance_id"], name: "fk_rails_d4f476a0f0"
+    t.index ["criterion_id", "attendance_id"], name: "index_attendance_statuses_on_criterion_id_and_attendance_id", unique: true
     t.index ["criterion_status_id"], name: "index_attendance_statuses_on_criterion_status_id"
   end
 
@@ -26,8 +28,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_attendances_on_event_id"
-    t.index ["user_id"], name: "index_attendances_on_user_id"
+    t.index ["event_id"], name: "fk_rails_777eb7170a"
+    t.index ["user_id", "event_id"], name: "index_attendances_on_user_id_and_event_id", unique: true
   end
 
   create_table "criteria", charset: "utf8mb4", force: :cascade do |t|
@@ -36,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_criteria_on_event_id"
+    t.index ["event_id", "priority"], name: "index_criteria_on_event_id_and_priority", unique: true
   end
 
   create_table "criterion_statuses", charset: "utf8mb4", force: :cascade do |t|
@@ -44,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
     t.bigint "criterion_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["criterion_id"], name: "index_criterion_statuses_on_criterion_id"
+    t.index ["criterion_id", "name"], name: "index_criterion_statuses_on_criterion_id_and_name", unique: true
   end
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
@@ -70,10 +72,11 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_id"], name: "index_users_on_team_id"
+    t.index ["team_id", "name"], name: "index_users_on_team_id_and_name", unique: true
   end
 
   add_foreign_key "attendance_statuses", "attendances"
+  add_foreign_key "attendance_statuses", "criteria"
   add_foreign_key "attendance_statuses", "criterion_statuses"
   add_foreign_key "attendances", "events"
   add_foreign_key "attendances", "users"

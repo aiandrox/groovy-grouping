@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_criteria_on_event_id  (event_id)
+#  index_criteria_on_event_id_and_priority  (event_id,priority) UNIQUE
 #
 # Foreign Keys
 #
