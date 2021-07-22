@@ -5,7 +5,7 @@ class AttendancesController < ApplicationController
     @attendance = @event.attendances.build(attendance_params)
 
     if @attendance.save
-      redirect_to edit_event_path(@event.edit_uuid), notice: '参加者を追加しました'
+      redirect_to edit_event_path(@event), notice: '参加者を追加しました'
     else
       render 'events/edit'
     end
@@ -14,7 +14,7 @@ class AttendancesController < ApplicationController
   def destroy
     @attendance = @event.attendances.find(params[:id])
     @attendance.destroy!
-    redirect_to edit_event_path(@event.edit_uuid), notice: '参加者から外しました'
+    redirect_to edit_event_path(@event), notice: '参加者から外しました'
   end
 
   private

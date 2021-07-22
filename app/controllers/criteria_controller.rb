@@ -10,7 +10,7 @@ class CriteriaController < ApplicationController
     status_names = statuses_params[:statuses].split("\r\n").reject(&:blank?)
 
     if @criterion.save_with_statuses(status_names)
-      redirect_to edit_event_path(@event.edit_uuid), notice: 'Criterion was successfully created.'
+      redirect_to edit_event_path(@event), notice: 'Criterion was successfully created.'
     else
       render :new
     end
@@ -19,7 +19,7 @@ class CriteriaController < ApplicationController
   def destroy
     @criterion = @event.criteria.find(params[:id])
     @criterion.destroy!
-    redirect_to edit_event_path(@event.edit_uuid), notice: 'Criterion was successfully destroyed.'
+    redirect_to edit_event_path(@event), notice: 'Criterion was successfully destroyed.'
   end
 
   private

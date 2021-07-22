@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     @event = @team.events.build(event_params)
 
     if @event.save
-      redirect_to edit_event_path(@event.edit_uuid), notice: 'Event was successfully created.'
+      redirect_to edit_event_path(@event), notice: 'Event was successfully created.'
     else
       render :new
     end
@@ -24,7 +24,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to edit_event_path(@event.edit_uuid), notice: 'Event was successfully updated.'
+      redirect_to edit_event_path(@event), notice: 'Event was successfully updated.'
     else
       render :edit
     end
