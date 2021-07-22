@@ -20,7 +20,7 @@ ja:
         member_count: 1グループの人数
       criterion:
         name: 基準
-        primary: 優先度
+        priority: 優先度
         gradation: グラデーション
       status:
         name: ステータス

@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  name       :string(255)      not null
-#  primary    :integer          not null
+#  priority   :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  event_id   :bigint           not null

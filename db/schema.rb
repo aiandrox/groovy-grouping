@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
 
   create_table "criteria", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "primary", null: false
+    t.integer "priority", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
