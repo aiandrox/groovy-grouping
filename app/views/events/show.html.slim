@@ -1,27 +1,22 @@
-p#notice = notice
-
-p
-  strong Name:
-  = @event.name
+h1= @event.name
 
 p
   strong 参照用URL
   = event_url(@event.ref_uuid)
 
-h2 参加者を追加する
-
-= form_with model: Attendance.new, url: event_attendances_path(@event.edit_uuid) do |f|
-  .field
-    = f.label :user_id
-    = f.select :user_id, @event.team.users.pluck(:name, :id)
-  .actions = f.submit
-
 h2 参加者
 
-- @event.attendances.each do |attendance|
-  = attendance.user_name
-  br
-
-br
+table
+  tr
+    th 名前
+    - @event.criteria.each do |criterion|
+      th= criterion.name
+    th
+  - @event.attendances.includes(:user).each do |attendance|
+    tr
+      td= attendance.user_name
+      - @event.criteria.order(:priority).each do |criterion|
+        - attendance_status = attendance.attendance_statuses.find_by(criterion: criterion)
+        td= attendance_status&.criterion_status&.name || '未設定'
 
 = link_to @event.team.name, team_path(@event.team.ref_uuid)
