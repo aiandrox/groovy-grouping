@@ -37,7 +37,7 @@ h2 参加者を追加する
 h2 参加者
 
 - @event.attendances.includes(:user).each do |attendance|
-  = attendance.user.name
+  = attendance.user_name
   = link_to '削除', event_attendance_path(@event.edit_uuid, attendance.id), method: :delete
   br
 

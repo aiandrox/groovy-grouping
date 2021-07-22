@@ -23,4 +23,8 @@ class Attendance < ApplicationRecord
   belongs_to :event
 
   validates :user_id, uniqueness: { scope: [:event_id] }
+
+  def user_name
+    user&.name || '削除済みユーザー'
+  end
 end
