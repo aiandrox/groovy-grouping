@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     resources :attendances, only: %i[create destroy]
     resources :criteria, only: %i[new create destroy]
   end
+  resources :attendance_statuses, only: %i[create update]
 end
