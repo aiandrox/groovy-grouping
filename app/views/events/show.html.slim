@@ -8,7 +8,15 @@ p
   strong 参照用URL
   = event_url(@event.ref_uuid)
 
-h2 所属ユーザー
+h2 参加者を追加する
+
+= form_with model: Attendance.new, url: event_attendances_path(@event.edit_uuid) do |f|
+  .field
+    = f.label :user_id
+    = f.select :user_id, @event.team.users.pluck(:name, :id)
+  .actions = f.submit
+
+h2 参加者
 
 - @event.users.each do |user|
   = user.name

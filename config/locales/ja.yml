@@ -13,7 +13,7 @@ ja:
       team:
         name: チーム名
       attendance:
-        attendance: 出欠
+        user_id: ユーザー
       event:
         name: イベント名
         group_count: グループの数
@@ -28,10 +28,3 @@ ja:
       result:
         setting: 設定
         checked: チェック
-
-  enums:
-    attendance:
-      attendance:
-        attendance: 出席
-        absence: 欠席
-        undecided: 未定

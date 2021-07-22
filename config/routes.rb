@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :teams, param: :ref_uuid, only: %i[new create show]
   resources :teams, param: :edit_uuid, only: %i[edit update destroy] do
     resources :users, only: %i[create destroy]
+    resources :events, only: %i[new create]
   end
-  resources :events, param: :ref_uuid, only: %i[new create show]
-  resources :events, param: :edit_uuid, only: %i[edit update destroy]
+  resources :events, param: :ref_uuid, only: %i[show]
+  resources :events, param: :edit_uuid, only: %i[edit update destroy] do
+    resources :attendances, only: %i[create destroy]
+  end
 end

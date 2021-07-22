@@ -4,7 +4,8 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new
+    @team = Team.find_by!(edit_uuid: params[:team_edit_uuid])
+    @event = @team.events.build
   end
 
   def edit
@@ -12,10 +13,10 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params)
+    @team = Team.find_by!(edit_uuid: params[:team_edit_uuid])
+    @event = @team.events.build(event_params)
 
     if @event.save
-      @event.events.create!(name: @event.name)
       redirect_to edit_event_path(@event.edit_uuid), notice: 'Event was successfully created.'
     else
       render :new

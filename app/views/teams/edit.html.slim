@@ -28,3 +28,9 @@ h2 所属ユーザー
   = user.name
   = link_to '削除', team_user_path(@team.edit_uuid, user.id), method: :delete
   br
+
+p= link_to '新規イベント作成', new_team_event_path(@team.edit_uuid)
+
+- @team.events.each do |event|
+  = link_to event.name, edit_event_path(event.edit_uuid)
+  br
