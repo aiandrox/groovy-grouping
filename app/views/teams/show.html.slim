@@ -1,0 +1,17 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @team.name
+
+p
+  strong Ref uuid:
+  = @team.ref_uuid
+
+p
+  strong Edit uuid:
+  = @team.edit_uuid
+
+=> link_to 'Edit', edit_team_path(@team)
+'|
+=< link_to 'Back', teams_path
