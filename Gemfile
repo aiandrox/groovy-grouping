@@ -15,7 +15,9 @@ gem 'rails-i18n'
 gem 'enum_help'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'bullet'
+  gem 'pry-byebug'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -23,6 +25,8 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   gem 'spring'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
