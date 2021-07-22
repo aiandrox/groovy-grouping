@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration[6.1]
   def change
     create_table :events do |t|
-      t.string :name, null: false, default: '未設定'
+      t.string :name, null: false
       t.string :ref_uuid, null: false
       t.string :edit_uuid, null: false
       t.references :team, null: false, foreign_key: true
