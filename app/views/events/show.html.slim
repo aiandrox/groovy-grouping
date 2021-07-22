@@ -21,3 +21,7 @@ h2 参加者
 - @event.users.each do |user|
   = user.name
   br
+
+br
+
+= link_to @event.team.name, team_path(@event.team.ref_uuid)

@@ -12,3 +12,7 @@ h1 New event
     = f.label :name
     = f.text_field :name
   .actions = f.submit
+
+br
+
+= link_to @event.team.name, team_path(@event.team.ref_uuid)
