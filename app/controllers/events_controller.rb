@@ -1,19 +1,12 @@
 class EventsController < ApplicationController
-  def show
-    @event = Event.find_by!(ref_uuid: params[:ref_uuid])
-  end
+  before_action :set_editable_team, only: %i[new create]
+  before_action :set_editable_event, only: %i[edit update destroy]
 
   def new
-    @team = Team.find_by!(edit_uuid: params[:team_edit_uuid])
     @event = @team.events.build
   end
 
-  def edit
-    @event = Event.find_by!(edit_uuid: params[:edit_uuid])
-  end
-
   def create
-    @team = Team.find_by!(edit_uuid: params[:team_edit_uuid])
     @event = @team.events.build(event_params)
 
     if @event.save
@@ -23,8 +16,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def show
+    @event = Event.find_by!(ref_uuid: params[:ref_uuid])
+  end
+
+  def edit; end
+
   def update
-    @event = Event.find_by!(edit_uuid: params[:edit_uuid])
     if @event.update(event_params)
       redirect_to edit_event_path(@event.edit_uuid), notice: 'Event was successfully updated.'
     else
@@ -33,12 +31,19 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find_by!(edit_uuid: params[:edit_uuid])
     @event.destroy!
     redirect_to root_path, notice: 'Event was successfully destroyed.'
   end
 
   private
+
+  def set_editable_team
+    @team = Team.find_by!(edit_uuid: params[:team_edit_uuid])
+  end
+
+  def set_editable_event
+    @event = Event.find_by!(edit_uuid: params[:edit_uuid])
+  end
 
   def event_params
     params.require(:event).permit(:name)

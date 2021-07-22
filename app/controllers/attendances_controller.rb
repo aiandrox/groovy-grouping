@@ -1,6 +1,7 @@
 class AttendancesController < ApplicationController
+  before_action :set_editable_event
+
   def create
-    @event = Event.find_by!(edit_uuid: params[:event_edit_uuid])
     @attendance = @event.attendances.build(attendance_params)
 
     if @attendance.save
@@ -11,13 +12,16 @@ class AttendancesController < ApplicationController
   end
 
   def destroy
-    @event = Event.find_by!(edit_uuid: params[:event_edit_uuid])
     @attendance = @event.attendances.find(params[:id])
     @attendance.destroy!
     redirect_to edit_event_path(@event.edit_uuid), notice: '参加者から外しました'
   end
 
   private
+
+  def set_editable_event
+    @event = Event.find_by!(edit_uuid: params[:event_edit_uuid])
+  end
 
   def attendance_params
     params.require(:attendance).permit(:user_id)
