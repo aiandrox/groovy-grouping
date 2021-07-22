@@ -22,7 +22,8 @@ ja:
         name: 基準
         priority: 優先度
         gradation: グラデーション
-      status:
+        statuses: ステータス
+      criterion_status:
         name: ステータス
         remarks: 備考
       result:

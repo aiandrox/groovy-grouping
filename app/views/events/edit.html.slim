@@ -12,7 +12,7 @@ p
   strong 編集用URL
   = edit_event_url(@event.edit_uuid)
 
-= form_with model: @event do |f|
+= form_with model: @event, url: event_path(@event.edit_uuid) do |f|
   - if @event.errors.any?
     #error_explanation
       h2 = "#{pluralize(@event.errors.count, 'error')} prohibited this event from being saved:"
