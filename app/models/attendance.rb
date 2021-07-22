@@ -19,6 +19,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Attendance < ApplicationRecord
+  has_many :attendance_statuses, dependent: :destroy
+  has_many :criterion_statuses, through: :attendance_statuses
   belongs_to :user
   belongs_to :event
 

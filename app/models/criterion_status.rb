@@ -18,6 +18,8 @@
 #  fk_rails_...  (criterion_id => criteria.id)
 #
 class CriterionStatus < ApplicationRecord
+  has_many :attendance_statuses, dependent: :destroy
+  has_many :attendance, through: :attendance_statuses
   belongs_to :criterion
 
   validates :name, presence: true, length: { maximum: 50 }

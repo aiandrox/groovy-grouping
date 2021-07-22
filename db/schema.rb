@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_124816) do
+ActiveRecord::Schema.define(version: 2021_07_22_125426) do
+
+  create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "attendance_id", null: false
+    t.bigint "criterion_status_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attendance_id"], name: "index_attendance_statuses_on_attendance_id"
+    t.index ["criterion_status_id"], name: "index_attendance_statuses_on_criterion_status_id"
+  end
 
   create_table "attendances", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -65,6 +74,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_124816) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "attendance_statuses", "attendances"
+  add_foreign_key "attendance_statuses", "criterion_statuses"
   add_foreign_key "attendances", "events"
   add_foreign_key "attendances", "users"
   add_foreign_key "criteria", "events"
