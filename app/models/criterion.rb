@@ -22,5 +22,5 @@ class Criterion < ApplicationRecord
   belongs_to :event
 
   validates :name, presence: true, length: { maximum: 50 }
-  validates :priority, presence: true
+  validates :priority, presence: true, uniqueness: { scope: [:event_id] }
 end

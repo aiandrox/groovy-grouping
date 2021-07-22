@@ -1,0 +1,18 @@
+h1 New criterion
+
+= form_with model: @criterion, url: event_criteria_path(@event.edit_uuid) do |f|
+  - if @criterion.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@criterion.errors.count, 'error')} prohibited this event from being saved:"
+      ul
+        - @criterion.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :priority
+    = f.number_field :priority
+  .actions = f.submit

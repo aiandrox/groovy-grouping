@@ -25,6 +25,14 @@ p
     = f.text_field :name
   .actions = f.submit
 
+h2 条件
+
+p= link_to '条件を追加', new_event_criterion_path(@event.edit_uuid)
+
+- @event.criteria.order(:priority).each do |criterion|
+  = "#{criterion.priority}. #{criterion.name}"
+  = link_to '削除', event_criterion_path(@event.edit_uuid, criterion.id), method: :delete
+  br
 
 h2 参加者を追加する
 
