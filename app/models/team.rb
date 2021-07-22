@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Team < ApplicationRecord
-  before_create :set_uuids
+  before_validation :set_uuids
 
   has_many :users, dependent: :destroy
   has_many :events, dependent: :destroy
@@ -22,7 +22,7 @@ class Team < ApplicationRecord
   private
 
   def set_uuids
-    self.ref_uuid = SecureRandom.urlsafe_base64(9)
-    self.edit_uuid = SecureRandom.urlsafe_base64(9)
+    self.ref_uuid = ref_uuid || SecureRandom.urlsafe_base64(9)
+    self.edit_uuid = edit_uuid || SecureRandom.urlsafe_base64(9)
   end
 end

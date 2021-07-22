@@ -1,13 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
-
-  # GET /teams
-  def index
-    @teams = Team.all
-  end
-
-  # GET /teams/1
   def show
+    @team = Team.find_by!(ref_uuid: params[:id])
   end
 
   # GET /teams/new
@@ -17,6 +10,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    @team = Team.find_by!(edit_uuid: params[:id])
   end
 
   # POST /teams
@@ -24,7 +18,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
+      @team.events.create!(name: @team.name)
+      redirect_to team_path(@team.ref_uuid), notice: 'Team was successfully created.'
     else
       render :new
     end
@@ -32,6 +27,7 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1
   def update
+    @team = Team.find_by!(edit_uuid: params[:id])
     if @team.update(team_params)
       redirect_to @team, notice: 'Team was successfully updated.'
     else
@@ -41,18 +37,15 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
-    @team.destroy
+    @team = Team.find_by!(edit_uuid: params[:edit_uuid])
+    @team.destroy!
     redirect_to teams_url, notice: 'Team was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def team_params
-      params.require(:team).permit(:name, :ref_uuid, :edit_uuid)
-    end
+  # Only allow a list of trusted parameters through.
+  def team_params
+    params.require(:team).permit(:name)
+  end
 end

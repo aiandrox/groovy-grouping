@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :events
+  root 'teams#new'
+  resources :events, param: :ref_uuid, only: %i[new show]
   resources :teams
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -19,7 +19,7 @@
 #  fk_rails_...  (team_id => teams.id)
 #
 class Event < ApplicationRecord
-  before_create :set_uuids
+  before_validation :set_uuids
 
   has_many :attendances, dependent: :destroy
   has_many :users, through: :attendances
@@ -32,7 +32,7 @@ class Event < ApplicationRecord
   private
 
   def set_uuids
-    self.ref_uuid = SecureRandom.urlsafe_base64(9)
-    self.edit_uuid = SecureRandom.urlsafe_base64(9)
+    self.ref_uuid = ref_uuid || SecureRandom.urlsafe_base64(9)
+    self.edit_uuid = edit_uuid || SecureRandom.urlsafe_base64(9)
   end
 end

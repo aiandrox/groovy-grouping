@@ -1,4 +1,4 @@
-= form_for @team do |f|
+= form_with model: @team do |f|
   - if @team.errors.any?
     #error_explanation
       h2 = "#{pluralize(@team.errors.count, 'error')} prohibited this team from being saved:"
@@ -9,10 +9,4 @@
   .field
     = f.label :name
     = f.text_field :name
-  .field
-    = f.label :ref_uuid
-    = f.text_field :ref_uuid
-  .field
-    = f.label :edit_uuid
-    = f.text_field :edit_uuid
   .actions = f.submit
