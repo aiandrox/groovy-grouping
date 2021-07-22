@@ -18,6 +18,8 @@ group :development, :test do
   gem 'bullet'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -29,6 +31,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
   gem 'spring'
   gem 'web-console', '>= 4.1.0'
 end
