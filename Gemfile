@@ -3,16 +3,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
-gem 'rails', '~> 6.1.4'
+gem 'bootsnap', '>= 1.4.4', require: false
+gem 'enum_help'
 gem 'mysql2', '~> 0.5'
 gem 'puma', '~> 5.0'
-gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'bootsnap', '>= 1.4.4', require: false
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'rails', '~> 6.1.4'
 gem 'rails-i18n'
-gem 'enum_help'
+gem 'sass-rails', '>= 6'
+gem 'turbolinks', '~> 5'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'webpacker', '~> 5.0'
 
 group :development, :test do
   gem 'bullet'
@@ -21,12 +21,16 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 2.0'
-  gem 'listen', '~> 3.3'
-  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'listen', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rails_best_practices'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'spring'
+  gem 'web-console', '>= 4.1.0'
 end
 
 group :test do
