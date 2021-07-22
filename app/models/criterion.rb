@@ -35,7 +35,7 @@ class Criterion < ApplicationRecord
     end
     true
   rescue ActiveRecord::RecordInvalid => e
-    errors.add(:base, e.errors.full_messages)
+    errors.add(:statuses, e.record.errors.messages.values.join)
     false
   end
 end

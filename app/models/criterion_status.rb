@@ -22,4 +22,5 @@ class CriterionStatus < ApplicationRecord
   belongs_to :criterion
 
   validates :name, presence: true, length: { maximum: 50 }
+  validates :name, uniqueness: { scope: [:criterion_id] }
 end
