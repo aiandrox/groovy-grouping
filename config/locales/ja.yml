@@ -1,0 +1,37 @@
+ja:
+  activerecord:
+    # User.model_name.human
+    models:
+      user: ユーザー
+    # User.human_attributes_name(:name)
+    attributes:
+      id: ID
+      created_at: 作成日時
+      updated_at: 更新日時
+      user:
+        name: ユーザー名
+      team:
+        name: チーム名
+      attendance:
+        attendance: 出欠
+      event:
+        name: イベント名
+        group_count: グループの数
+        member_count: 1グループの人数
+      criterion:
+        name: 基準
+        primary: 優先度
+        gradation: グラデーション
+      status:
+        name: ステータス
+        remarks: 備考
+      result:
+        setting: 設定
+        checked: チェック
+
+  enums:
+    attendance:
+      attendance:
+        attendance: 出席
+        absence: 欠席
+        undecided: 未定
