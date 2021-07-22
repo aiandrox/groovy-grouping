@@ -7,8 +7,9 @@ class CriteriaController < ApplicationController
 
   def create
     @criterion = @event.criteria.build(criterion_params)
+    status_names = statuses_params[:statuses].split("\r\n").reject(&:blank?)
 
-    if @criterion.save
+    if @criterion.save_with_statuses(status_names)
       redirect_to edit_event_path(@event.edit_uuid), notice: 'Criterion was successfully created.'
     else
       render :new
@@ -29,5 +30,9 @@ class CriteriaController < ApplicationController
 
   def criterion_params
     params.require(:criterion).permit(:name, :priority)
+  end
+
+  def statuses_params
+    params.require(:criterion).permit(:statuses)
   end
 end

@@ -23,4 +23,19 @@ class Criterion < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :priority, presence: true, uniqueness: { scope: [:event_id] }
+
+  def save_with_statuses(status_names)
+    return false if invalid?
+
+    transaction do
+      save!
+      status_names.each do |name|
+        criterion_statuses.create!(name: name)
+      end
+    end
+    true
+  rescue ActiveRecord::RecordInvalid => e
+    errors.add(:base, e.errors.full_messages)
+    false
+  end
 end
