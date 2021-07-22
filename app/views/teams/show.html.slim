@@ -8,6 +8,8 @@ p
   strong 参照用URL
   = team_url(@team.ref_uuid)
 
-p
-  strong Edit uuid:
-  = @team.edit_uuid
+h2 所属ユーザー
+
+- @team.users.each do |user|
+  = user.name
+  br

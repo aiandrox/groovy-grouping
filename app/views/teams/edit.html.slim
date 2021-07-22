@@ -1,7 +1,30 @@
 h1 Editing team
 
+p
+  strong Name:
+  = @team.name
+
+p
+  strong 参照用URL
+  = team_url(@team.ref_uuid)
+
+p
+  strong 編集用URL
+  = edit_team_url(@team.edit_uuid)
+
 == render 'form'
 
-=> link_to 'Show', @team
-'|
-=< link_to 'Back', teams_path
+h2 ユーザーを追加する
+
+= form_with model: User.new, url: team_users_path(@team.edit_uuid) do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit
+
+h2 所属ユーザー
+
+- @team.users.each do |user|
+  = user.name
+  = link_to '削除', team_user_path(@team.edit_uuid, user.id), method: :delete
+  br

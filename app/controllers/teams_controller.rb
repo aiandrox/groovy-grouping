@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def show
-    @team = Team.find_by!(ref_uuid: params[:id])
+    @team = Team.find_by!(ref_uuid: params[:ref_uuid])
   end
 
   # GET /teams/new
@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find_by!(edit_uuid: params[:id])
+    @team = Team.find_by!(edit_uuid: params[:edit_uuid])
   end
 
   # POST /teams
@@ -19,7 +19,7 @@ class TeamsController < ApplicationController
 
     if @team.save
       @team.events.create!(name: @team.name)
-      redirect_to team_path(@team.ref_uuid), notice: 'Team was successfully created.'
+      redirect_to edit_team_path(@team.edit_uuid), notice: 'Team was successfully created.'
     else
       render :new
     end
@@ -27,9 +27,9 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1
   def update
-    @team = Team.find_by!(edit_uuid: params[:id])
+    @team = Team.find_by!(edit_uuid: params[:edit_uuid])
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+      redirect_to edit_team_path(@team.edit_uuid), notice: 'Team was successfully updated.'
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find_by!(edit_uuid: params[:edit_uuid])
     @team.destroy!
-    redirect_to teams_url, notice: 'Team was successfully destroyed.'
+    redirect_to root_path, notice: 'Team was successfully destroyed.'
   end
 
   private
