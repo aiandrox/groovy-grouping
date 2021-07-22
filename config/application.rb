@@ -29,6 +29,7 @@ module GroovyGrouping
       g.assets false
       g.skip_routes true
       g.helper false
+      g.template_engine = :slim
       g.test_framework :rspec,
                        view_specs: false,
                        helper_specs: false,
