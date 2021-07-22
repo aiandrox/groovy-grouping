@@ -21,6 +21,8 @@
 class Event < ApplicationRecord
   before_create :set_uuids
 
+  has_many :attendances, dependent: :destroy
+  has_many :users, through: :attendances
   belongs_to :team
 
   validates :name, presence: true, length: { maximum: 50 }

@@ -19,5 +19,8 @@
 class User < ApplicationRecord
   belongs_to :team
 
+  has_many :attendances, dependent: :nullify
+  has_many :events, through: :attendances
+
   validates :name, presence: true, length: { maximum: 50 }
 end
