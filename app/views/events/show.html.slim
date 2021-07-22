@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @event.name
+
+p
+  strong Ref uuid:
+  = @event.ref_uuid
+
+p
+  strong Edit uuid:
+  = @event.edit_uuid
+
+p
+  strong Team:
+  = @event.team
+
+=> link_to 'Edit', edit_event_path(@event)
+'|
+=< link_to 'Back', events_path

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: teams
+# Table name: events
 #
 #  id         :bigint           not null, primary key
 #  edit_uuid  :string(255)      not null
@@ -8,12 +8,20 @@
 #  ref_uuid   :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  team_id    :bigint           not null
 #
-class Team < ApplicationRecord
+# Indexes
+#
+#  index_events_on_team_id  (team_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (team_id => teams.id)
+#
+class Event < ApplicationRecord
   before_create :set_uuids
 
-  has_many :users, dependent: :destroy
-  has_many :events, dependent: :destroy
+  belongs_to :team
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :ref_uuid, presence: true, uniqueness: true
