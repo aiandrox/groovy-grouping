@@ -12,6 +12,8 @@
 class Team < ApplicationRecord
   before_create :set_uuids
 
+  has_many :users, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 50 }
   validates :ref_uuid, presence: true, uniqueness: true
   validates :edit_uuid, presence: true, uniqueness: true
