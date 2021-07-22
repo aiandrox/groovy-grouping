@@ -18,6 +18,7 @@
 #  fk_rails_...  (event_id => events.id)
 #
 class Criterion < ApplicationRecord
+  has_many :criterion_statuses, dependent: :destroy
   belongs_to :event
 
   validates :name, presence: true, length: { maximum: 50 }
