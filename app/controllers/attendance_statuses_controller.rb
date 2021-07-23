@@ -7,7 +7,7 @@ class AttendanceStatusesController < ApplicationController
   end
 
   def update
-    @attendance_status = @attendance.attendance_statuses.find(attendance_status_params[:id])
+    @attendance_status = @attendance.attendance_statuses.find(params[:id])
     if attendance_status_params[:criterion_status_id].present?
       @attendance_status.update!(attendance_status_params)
     else
