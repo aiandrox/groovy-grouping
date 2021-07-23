@@ -12,9 +12,7 @@ h1 New criterion
     = f.label :name
     = f.text_field :name
 
-  .field
-    = f.label :priority
-    = f.number_field :priority
+  = f.hidden_field :priority, value: 1
 
   .field
     = f.label :statuses

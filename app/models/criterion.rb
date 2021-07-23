@@ -23,6 +23,7 @@ class Criterion < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :priority, presence: true, uniqueness: { scope: [:event_id] }
+  validate :criterion_count_validate, on: :create
 
   def save_with_statuses(status_names)
     return false if invalid?
@@ -37,5 +38,11 @@ class Criterion < ApplicationRecord
   rescue ActiveRecord::RecordInvalid => e
     errors.add(:statuses, e.record.errors.messages.values.join)
     false
+  end
+
+  private
+
+  def criterion_count_validate
+    errors.add(:base, "条件は1つしか設定できません") if event.criteria.count >= 1
   end
 end
