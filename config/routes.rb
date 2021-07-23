@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resources :events, param: :edit_uuid, only: %i[edit update destroy] do
     resources :attendances, only: %i[create destroy]
     resources :criteria, only: %i[new create destroy]
+    resources :attendance_statuses, only: %i[create update]
   end
-  resources :attendance_statuses, only: %i[create update]
 end

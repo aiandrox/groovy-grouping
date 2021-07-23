@@ -8,7 +8,7 @@ p
   strong 編集用URL
   = edit_event_url(@event.edit_uuid)
 
-= form_with model: @event, url: event_path(@event.edit_uuid) do |f|
+= form_with model: @event do |f|
   - if @event.errors.any?
     #error_explanation
       h2 = "#{pluralize(@event.errors.count, 'error')} prohibited this event from being saved:"
@@ -60,7 +60,7 @@ table
       - @event.criteria.order(:priority).each do |criterion|
         - attendance_status = attendance.attendance_statuses.find_by(criterion: criterion) || AttendanceStatus.new
         td
-          = form_with model: attendance_status do |f|
+          = form_with model: [@event, attendance_status] do |f|
             = f.hidden_field :attendance_id, value: attendance.id
             = f.hidden_field :criterion_id, value: criterion.id
             = f.select :criterion_status_id, criterion.criterion_statuses.pluck(:name, :id), include_blank: '未設定'
