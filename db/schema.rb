@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_122720) do
+ActiveRecord::Schema.define(version: 2021_07_25_122929) do
 
   create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 2021_07_25_122720) do
     t.index ["team_id"], name: "index_events_on_team_id"
   end
 
+  create_table "group_users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "user_name", null: false
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["user_id"], name: "index_group_users_on_user_id"
+  end
+
   create_table "groups", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "result_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -101,6 +111,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_122720) do
   add_foreign_key "criteria", "events"
   add_foreign_key "criterion_statuses", "criteria"
   add_foreign_key "events", "teams"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "users"
   add_foreign_key "groups", "results"
   add_foreign_key "results", "events"
   add_foreign_key "users", "teams"

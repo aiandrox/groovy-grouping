@@ -16,5 +16,7 @@
 #  fk_rails_...  (result_id => results.id)
 #
 class Group < ApplicationRecord
+  has_many :group_users, dependent: :destroy
+  has_many :users, through: :group_users
   belongs_to :result
 end
