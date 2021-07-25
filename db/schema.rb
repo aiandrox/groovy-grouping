@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_125426) do
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "member_count"
     t.string "ref_uuid", null: false
     t.string "edit_uuid", null: false
     t.bigint "team_id", null: false
