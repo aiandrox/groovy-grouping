@@ -18,6 +18,7 @@
 #  fk_rails_...  (event_id => events.id)
 #
 class Result < ApplicationRecord
+  has_many :groups, dependent: :destroy
   belongs_to :event
 
   def self.group(event)

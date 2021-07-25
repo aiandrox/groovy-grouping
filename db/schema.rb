@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_122512) do
+ActiveRecord::Schema.define(version: 2021_07_25_122720) do
 
   create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -60,6 +60,13 @@ ActiveRecord::Schema.define(version: 2021_07_25_122512) do
     t.index ["team_id"], name: "index_events_on_team_id"
   end
 
+  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "result_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_id"], name: "index_groups_on_result_id"
+  end
+
   create_table "results", charset: "utf8mb4", force: :cascade do |t|
     t.json "setting", null: false
     t.string "uuid", null: false
@@ -93,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_122512) do
   add_foreign_key "criteria", "events"
   add_foreign_key "criterion_statuses", "criteria"
   add_foreign_key "events", "teams"
+  add_foreign_key "groups", "results"
   add_foreign_key "results", "events"
   add_foreign_key "users", "teams"
 end
