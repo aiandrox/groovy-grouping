@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_122929) do
+ActiveRecord::Schema.define(version: 2021_07_25_134521) do
 
   create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -77,6 +77,25 @@ ActiveRecord::Schema.define(version: 2021_07_25_122929) do
     t.index ["result_id"], name: "index_groups_on_result_id"
   end
 
+  create_table "log_criteria", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "priority", null: false
+    t.bigint "result_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_id"], name: "index_log_criteria_on_result_id"
+  end
+
+  create_table "log_user_statuses", charset: "utf8mb4", force: :cascade do |t|
+    t.string "status_name", null: false
+    t.bigint "group_user_id", null: false
+    t.bigint "log_criteria_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_user_id"], name: "index_log_user_statuses_on_group_user_id"
+    t.index ["log_criteria_id"], name: "index_log_user_statuses_on_log_criteria_id"
+  end
+
   create_table "results", charset: "utf8mb4", force: :cascade do |t|
     t.integer "member_count", null: false
     t.string "uuid", null: false
@@ -114,6 +133,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_122929) do
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "users"
   add_foreign_key "groups", "results"
+  add_foreign_key "log_criteria", "results"
+  add_foreign_key "log_user_statuses", "group_users"
+  add_foreign_key "log_user_statuses", "log_criteria", column: "log_criteria_id"
   add_foreign_key "results", "events"
   add_foreign_key "users", "teams"
 end

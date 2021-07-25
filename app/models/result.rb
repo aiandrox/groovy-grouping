@@ -19,6 +19,7 @@
 #
 class Result < ApplicationRecord
   has_many :groups, dependent: :destroy
+  has_many :log_criteria, dependent: :destroy
   belongs_to :event
 
   def self.group(event)

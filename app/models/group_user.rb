@@ -20,6 +20,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class GroupUser < ApplicationRecord
+  has_many :log_user_statuses, dependent: :destroy
   belongs_to :group
   belongs_to :user
 
