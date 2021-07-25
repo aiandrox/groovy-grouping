@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "member_count"
+    t.integer "group_count"
     t.string "ref_uuid", null: false
     t.string "edit_uuid", null: false
     t.bigint "team_id", null: false
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
   end
 
   create_table "results", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "member_count", null: false
+    t.integer "group_count", null: false
     t.string "uuid", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false

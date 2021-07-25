@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      @team.events.create!(name: @team.name, member_count: 1)
+      @team.events.create!(name: @team.name, group_count: 1)
       redirect_to edit_team_path(@team.edit_uuid), notice: 'Team was successfully created.'
     else
       render :new
