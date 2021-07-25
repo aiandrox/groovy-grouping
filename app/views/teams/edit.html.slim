@@ -20,7 +20,7 @@ h2 ユーザーを追加する
 
 h2 所属ユーザー
 
-- @team.users.each do |user|
+- @team.users.active.each do |user|
   = user.name
   = link_to '削除', team_user_path(@team.edit_uuid, user.id), method: :delete
   br

@@ -18,13 +18,13 @@
 #  fk_rails_...  (team_id => teams.id)
 #
 class User < ApplicationRecord
-  default_scope { where(active: true) }
-
   belongs_to :team
   has_many :attendances, dependent: :destroy
   has_many :events, through: :attendances
 
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { scope: [:team_id, :active] }
+
+  scope :active, -> { where(active: true) }
 
   def deactive!
     update!(name: "#{name}_#{id}", active: false)
