@@ -2,7 +2,8 @@ class ResultsController < ApplicationController
   def create
     @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
     if setting_statuses?(@event)
-      Result.group(@event)
+      result = Result.group(@event)
+      redirect_to event_result_path(@event.ref_uuid, result)
     else
       redirect_to request.referer, alert: '条件が未設定の参加者がいます'
     end

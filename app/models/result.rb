@@ -41,6 +41,7 @@ class Result < ApplicationRecord
             group.group_users.create!(user_name: attendance.user_name, user_id: attendance.user_id)
           end
         end
+        result
       end
     end
   end
