@@ -35,16 +35,16 @@ table
 
 h2 条件
 
-p= link_to '条件を追加', new_event_criterion_path(@event.edit_uuid)
+p= link_to '条件を追加', new_event_criterion_path(@event)
 
 - @event.criteria.order(:priority).each do |criterion|
   = "#{criterion.priority}. #{criterion.name}"
-  = link_to '削除', event_criterion_path(@event.edit_uuid, criterion.id), method: :delete
+  = link_to '削除', event_criterion_path(@event, criterion.id), method: :delete
   br
 
 h2 参加者を追加する
 
-= form_with model: Attendance.new, url: event_attendances_path(@event.edit_uuid) do |f|
+= form_with model: Attendance.new, url: event_attendances_path(@event) do |f|
   .field
     = f.label :user_id
     = f.select :user_id, @event.team.users.active.pluck(:name, :id)
@@ -77,7 +77,7 @@ table
             = f.hidden_field :criterion_id, value: criterion.id
             = f.select :criterion_status_id, criterion.criterion_statuses.order(:id).pluck(:name, :id), include_blank: '未設定'
             = f.submit
-      td= link_to '削除', event_attendance_path(@event.edit_uuid, attendance.id), method: :delete
+      td= link_to '削除', event_attendance_path(@event, attendance.id), method: :delete
 
 br
 

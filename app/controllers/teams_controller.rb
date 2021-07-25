@@ -16,7 +16,7 @@ class TeamsController < ApplicationController
 
     if @team.save
       @team.events.create!(name: @team.name, group_count: 1)
-      redirect_to edit_team_path(@team.edit_uuid), notice: 'Team was successfully created.'
+      redirect_to edit_team_path(@team), notice: 'Team was successfully created.'
     else
       render :new
     end
@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-      redirect_to edit_team_path(@team.edit_uuid), notice: 'Team was successfully updated.'
+      redirect_to edit_team_path(@team), notice: 'Team was successfully updated.'
     else
       render :edit
     end

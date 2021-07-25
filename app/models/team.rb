@@ -19,6 +19,10 @@ class Team < ApplicationRecord
   validates :ref_uuid, presence: true, uniqueness: true
   validates :edit_uuid, presence: true, uniqueness: true
 
+  def to_param
+    edit_uuid
+  end
+
   private
 
   def set_uuids

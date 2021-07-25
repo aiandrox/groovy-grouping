@@ -12,7 +12,7 @@ p
 
 h2 ユーザーを追加する
 
-= form_with model: User.new, url: team_users_path(@team.edit_uuid) do |f|
+= form_with model: User.new, url: team_users_path(@team) do |f|
   .field
     = f.label :name
     = f.text_field :name
@@ -22,11 +22,11 @@ h2 所属ユーザー
 
 - @team.users.active.each do |user|
   = user.name
-  = link_to '削除', team_user_path(@team.edit_uuid, user.id), method: :delete
+  = link_to '削除', team_user_path(@team, user.id), method: :delete
   br
 
-p= link_to '新規イベント作成', new_team_event_path(@team.edit_uuid)
+p= link_to '新規イベント作成', new_team_event_path(@team)
 
 - @team.events.each do |event|
-  = link_to event.name, edit_event_path(event.edit_uuid)
+  = link_to event.name, edit_event_path(event)
   br
