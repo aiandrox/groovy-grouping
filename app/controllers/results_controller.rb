@@ -6,12 +6,11 @@ class ResultsController < ApplicationController
     else
       redirect_to request.referer, alert: '条件が未設定の参加者がいます'
     end
-    # attendances = @event.attendances.joins(attendance_statuses: :criterion_status)
-    # attendance_statuses = AttendanceStatus.joins(:criterion, :criterion_status).where(criterion: { event_id: @event.id })
-    # attendance_statuses_hash = attendance_statuses.group_by(&:criterion_id)
-    # @event.criteria.order_by(:priority).each do |criterion|
-    #   attendance_statuses = attendance_statuses_hash[criterion.id]
-    # end
+  end
+
+  def show
+    @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
+    @result = @event.results.find_by!(uuid: params[:uuid])
   end
 
   def setting_statuses?(event)

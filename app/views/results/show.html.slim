@@ -1,0 +1,12 @@
+| #{@result.member_count}人ずつのグループ
+br
+= @result.created_at
+br
+br
+| --------------------------
+br
+- @result.groups.each do |group|
+  = group.group_users.map(&:user_name).join(', ')
+  br
+  | --------------------------
+  br

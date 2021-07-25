@@ -24,6 +24,15 @@ p
     = f.number_field :member_count
   .actions = f.submit
 
+h2 結果一覧
+
+table
+  tr
+    th 作成日時
+  - @event.results.each do |result|
+    tr
+      td= link_to result.created_at, event_result_path(@event.ref_uuid, result)
+
 h2 条件
 
 p= link_to '条件を追加', new_event_criterion_path(@event.edit_uuid)

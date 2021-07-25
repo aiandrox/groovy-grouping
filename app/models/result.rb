@@ -44,4 +44,8 @@ class Result < ApplicationRecord
       end
     end
   end
+
+  def to_param
+    uuid
+  end
 end
