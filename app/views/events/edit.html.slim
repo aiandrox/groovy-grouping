@@ -47,7 +47,7 @@ h2 参加者を追加する
 = form_with model: Attendance.new, url: event_attendances_path(@event) do |f|
   .field
     = f.label :user_id
-    = f.select :user_id, @event.team.users.active.pluck(:name, :id)
+    = f.select :user_id, @event.team.users.active.where.not(id: @event.attendances.map(&:user_id)).pluck(:name, :id)
 
   - @event.criteria.order(:priority).each do |criterion|
     = f.fields_for 'attendance_statuses_attributes[]', AttendanceStatus.new, {} do |ff|
