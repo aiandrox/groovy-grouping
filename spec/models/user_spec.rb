@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id         :bigint           not null, primary key
+#  active     :boolean          default(TRUE), not null
 #  name       :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -10,7 +11,7 @@
 #
 # Indexes
 #
-#  index_users_on_team_id_and_name  (team_id,name) UNIQUE
+#  index_users_on_team_id_and_name_and_active  (team_id,name,active) UNIQUE
 #
 # Foreign Keys
 #

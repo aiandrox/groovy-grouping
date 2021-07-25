@@ -86,10 +86,11 @@ ActiveRecord::Schema.define(version: 2021_07_25_122720) do
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
+    t.boolean "active", default: true, null: false
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_id", "name"], name: "index_users_on_team_id_and_name", unique: true
+    t.index ["team_id", "name", "active"], name: "index_users_on_team_id_and_name_and_active", unique: true
   end
 
   add_foreign_key "attendance_statuses", "attendances"

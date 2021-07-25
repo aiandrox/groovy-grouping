@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = @team.users.find(params[:id])
-    @user.destroy!
+    @user.deactive!
     redirect_to edit_team_path(@team.edit_uuid), notice: 'User was successfully destroyed.'
   end
 
