@@ -26,7 +26,7 @@ class Result < ApplicationRecord
     if event.criteria.present?
       event.attendances.joins(attendance_statuses: :criterion_status).group_by(&:criterion_status_ids)
     else
-      grouped_attendance_ids = event.attendance_ids.in_groups(event.group_count, false)
+      grouped_attendance_ids = event.attendance_ids.shuffle.in_groups(event.group_count, false)
       transaction do
         result = create!(
           group_count: event.group_count,
