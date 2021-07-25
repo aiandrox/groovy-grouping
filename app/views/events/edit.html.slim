@@ -69,4 +69,8 @@ table
 
 br
 
+= link_to 'グループ分けする', event_results_path(@event.ref_uuid), method: :post
+
+br
+
 = link_to @event.team.name, team_path(@event.team.ref_uuid)
