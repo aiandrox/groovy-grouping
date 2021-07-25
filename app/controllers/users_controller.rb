@@ -2,12 +2,13 @@ class UsersController < ApplicationController
   before_action :set_editable_team
 
   def create
-    @user = @team.users.build(user_params)
+    @user = User.new(**user_params, team: @team)
 
     if @user.save
       redirect_to edit_team_path(@team.edit_uuid), notice: 'User was successfully created.'
     else
-      render :new
+      flash.now[:alert] = @user.errors.full_messages.join
+      render 'teams/edit'
     end
   end
 
