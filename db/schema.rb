@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_122929) do
   end
 
   create_table "results", charset: "utf8mb4", force: :cascade do |t|
-    t.json "setting", null: false
+    t.integer "member_count", null: false
     t.string "uuid", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
