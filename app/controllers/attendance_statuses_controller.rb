@@ -3,7 +3,8 @@ class AttendanceStatusesController < ApplicationController
 
   def create
     @attendance_status = @attendance.attendance_statuses.build(attendance_status_params)
-    @attendance_status.save!
+    @attendance_status.save
+    redirect_to request.referer
   end
 
   def update
@@ -13,6 +14,7 @@ class AttendanceStatusesController < ApplicationController
     else
       @attendance_status.destroy!
     end
+    redirect_to request.referer
   end
 
   private
