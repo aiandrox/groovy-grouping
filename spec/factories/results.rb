@@ -17,14 +17,10 @@
 #
 #  fk_rails_...  (event_id => events.id)
 #
-class Result < ApplicationRecord
-  belongs_to :event
-
-  def self.group(event)
-    if event.criteria.present?
-      event.attendances.joins(attendance_statuses: :criterion_status).group_by(&:criterion_status_ids)
-    else
-      event.attendances.shuffle
-    end
+FactoryBot.define do
+  factory :result do
+    setting { "" }
+    uuid { "MyString" }
+    event
   end
 end

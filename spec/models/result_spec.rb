@@ -17,14 +17,8 @@
 #
 #  fk_rails_...  (event_id => events.id)
 #
-class Result < ApplicationRecord
-  belongs_to :event
+require 'rails_helper'
 
-  def self.group(event)
-    if event.criteria.present?
-      event.attendances.joins(attendance_statuses: :criterion_status).group_by(&:criterion_status_ids)
-    else
-      event.attendances.shuffle
-    end
-  end
+RSpec.describe Result, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

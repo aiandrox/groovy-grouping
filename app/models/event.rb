@@ -25,6 +25,7 @@ class Event < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :users, through: :attendances
   has_many :criteria, dependent: :destroy
+  has_many :results, dependent: :destroy
   belongs_to :team
 
   validates :name, presence: true, length: { maximum: 50 }
