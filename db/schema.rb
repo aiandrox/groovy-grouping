@@ -89,11 +89,11 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
   create_table "log_user_statuses", charset: "utf8mb4", force: :cascade do |t|
     t.string "status_name", null: false
     t.bigint "group_user_id", null: false
-    t.bigint "log_criteria_id", null: false
+    t.bigint "log_criterion_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_user_id"], name: "index_log_user_statuses_on_group_user_id"
-    t.index ["log_criteria_id"], name: "index_log_user_statuses_on_log_criteria_id"
+    t.index ["log_criterion_id"], name: "index_log_user_statuses_on_log_criterion_id"
   end
 
   create_table "results", charset: "utf8mb4", force: :cascade do |t|
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
   add_foreign_key "groups", "results"
   add_foreign_key "log_criteria", "results"
   add_foreign_key "log_user_statuses", "group_users"
-  add_foreign_key "log_user_statuses", "log_criteria", column: "log_criteria_id"
+  add_foreign_key "log_user_statuses", "log_criteria"
   add_foreign_key "results", "events"
   add_foreign_key "users", "teams"
 end
