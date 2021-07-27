@@ -61,9 +61,11 @@ class Result < ApplicationRecord
   def self.grouped_attendances(event)
     if event.criteria.present?
       attendances_hash = event.attendances.joins(attendance_statuses: :criterion_status).group_by(&:criterion_status_ids)
-      attendances = attendances_hash.to_a.shuffle.map do |criterion_status_ids, attendances|
+      attendances = attendances_hash.values.sort_by { |attendances|
+        attendances.size % event.group_count
+      }.map { |attendances|
         attendances.shuffle
-      end.flatten
+      }.flatten
       group_array = GroupArray.new(attendances)
       group_array.divide_smooth(event.group_count)
     else
