@@ -5,9 +5,10 @@ br
 
 h2 条件
 - if @result.log_criteria.present?
-  = @result.log_criteria.pluck(:name).join(', ')
+  = @result.log_criteria.order(:priority).pluck(:name).join(', ')
   | の基準で
-#{@result.group_count}グループに分ける
+| #{@result.group_count}グループに分ける
+
 br
 | --------------------------
 br
