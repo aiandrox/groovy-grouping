@@ -2,11 +2,17 @@
 br
 = @result.created_at
 br
+
+h2 条件
+= @result.log_criteria.pluck(:name).join(', ')
 br
 | --------------------------
 br
 - @result.groups.includes(:group_users).each do |group|
-  = group.group_users.map(&:user_name).join(', ')
-  br
+  - group.group_users.each do |group_user|
+    | #{group_user.user_name}
+    - if @result.log_criteria.present?
+      | （#{group_user.log_user_statuses.pluck(:status_name).join(', ')}）
+    br
   | --------------------------
   br
