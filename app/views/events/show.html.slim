@@ -6,14 +6,7 @@ p
   strong 参照用URL
   = event_url(@event.ref_uuid)
 
-h2 グループ分け履歴
-
-table
-  tr
-    th 作成日時
-  - @event.results.each do |result|
-    tr
-      td= link_to l(result.created_at), event_result_path(@event.ref_uuid, result)
+= render 'results/results', event: @event, results: @event.results
 
 h2 参加者
 

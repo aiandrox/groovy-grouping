@@ -25,6 +25,8 @@ p
     = f.label :group_count
     = f.number_field :group_count
   .actions = f.submit
+br
+= link_to 'グループ分けする', event_results_path(@event.ref_uuid), method: :post
 
 h2 条件
 
@@ -74,17 +76,7 @@ table
 
 br
 
-= link_to 'グループ分けする', event_results_path(@event.ref_uuid), method: :post
-
-
-h2 グループ分け履歴
-
-table
-  tr
-    th 作成日時
-  - @event.results.each do |result|
-    tr
-      td= link_to l(result.created_at), event_result_path(@event.ref_uuid, result)
+= render 'results/results', event: @event, results: @event.results
 
 br
 

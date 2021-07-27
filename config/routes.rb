@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :events, only: %i[new create]
   end
   resources :events, param: :ref_uuid, only: %i[show] do
-    resources :results, param: :uuid, only: %i[create show]
+    resources :results, param: :uuid, only: %i[create show destroy]
   end
   resources :events, param: :edit_uuid, only: %i[edit update destroy] do
     resources :attendances, only: %i[create destroy]

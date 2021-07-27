@@ -13,4 +13,11 @@ class ResultsController < ApplicationController
     @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
     @result = @event.results.find_by!(uuid: params[:uuid])
   end
+
+  def destroy
+    @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
+    @result = @event.results.find_by!(uuid: params[:uuid])
+    @result.destroy!
+    redirect_to request.referer, notice: "#{l(@result.created_at)}の履歴を削除しました"
+  end
 end

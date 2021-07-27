@@ -1,0 +1,10 @@
+h2 グループ分け履歴
+
+table
+  tr
+    th 作成日時
+    th
+  - results.each do |result|
+    tr
+      td= link_to l(result.created_at), event_result_path(event.ref_uuid, result)
+      td= link_to '削除', event_result_path(event.ref_uuid, result), method: :delete
