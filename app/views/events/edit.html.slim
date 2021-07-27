@@ -1,3 +1,5 @@
+- content_for(:title, @event.name)
+
 h1= @event.name
 
 p
@@ -23,15 +25,6 @@ p
     = f.label :group_count
     = f.number_field :group_count
   .actions = f.submit
-
-h2 グループ分け履歴
-
-table
-  tr
-    th 作成日時
-  - @event.results.each do |result|
-    tr
-      td= link_to result.created_at, event_result_path(@event.ref_uuid, result)
 
 h2 条件
 
@@ -77,11 +70,21 @@ table
             = f.hidden_field :criterion_id, value: criterion.id
             = f.select :criterion_status_id, criterion.criterion_statuses.order(:id).pluck(:name, :id), include_blank: '未設定'
             = f.submit
-      td= link_to '削除', event_attendance_path(@event, attendance.id), method: :delete
+      td= link_to '不参加', event_attendance_path(@event, attendance.id), method: :delete
 
 br
 
 = link_to 'グループ分けする', event_results_path(@event.ref_uuid), method: :post
+
+
+h2 グループ分け履歴
+
+table
+  tr
+    th 作成日時
+  - @event.results.each do |result|
+    tr
+      td= link_to l(result.created_at), event_result_path(@event.ref_uuid, result)
 
 br
 

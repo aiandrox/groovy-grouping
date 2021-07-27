@@ -1,10 +1,13 @@
-| #{@result.group_count}分割
-br
-= @result.created_at
+- content_for(:title, l(@result.created_at))
+
+= l(@result.created_at)
 br
 
 h2 条件
-= @result.log_criteria.pluck(:name).join(', ')
+- if @result.log_criteria.present?
+  = @result.log_criteria.pluck(:name).join(', ')
+  | の基準で
+#{@result.group_count}グループに分ける
 br
 | --------------------------
 br

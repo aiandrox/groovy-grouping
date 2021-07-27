@@ -1,3 +1,5 @@
+- content_for(:title, @event.name)
+
 h1= @event.name
 
 p
@@ -11,7 +13,7 @@ table
     th 作成日時
   - @event.results.each do |result|
     tr
-      td= link_to result.created_at, event_result_path(@event.ref_uuid, result)
+      td= link_to l(result.created_at), event_result_path(@event.ref_uuid, result)
 
 h2 参加者
 
