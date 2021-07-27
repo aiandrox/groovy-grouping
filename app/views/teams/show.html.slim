@@ -11,3 +11,9 @@ h2 所属ユーザー
 - @team.users.active.each do |user|
   = user.name
   br
+
+h2 イベント一覧
+
+- @team.events.each do |event|
+  = link_to event.name, event_path(event.ref_uuid)
+  br
