@@ -19,6 +19,7 @@
 #
 class Result < ApplicationRecord
   has_many :groups, dependent: :destroy
+  has_many :group_users, through: :groups
   has_many :log_criteria, dependent: :destroy
   belongs_to :event
 
@@ -30,10 +31,25 @@ class Result < ApplicationRecord
         event_id: event.id
       )
 
-      grouped_attendances(event).each do |attendances|
+      group_users = grouped_attendances(event).map do |attendances|
         group = result.groups.create!
         attendances.each do |attendance|
           group.group_users.create!(user_name: attendance.user_name, user_id: attendance.user_id)
+        end
+      end.flatten
+
+      event.criteria.each do |criterion|
+        log_criterion = result.log_criteria.create!(
+          name: criterion.name,
+          priority: criterion.priority
+        )
+        criterion.attendance_statuses.each do |attendance_status|
+          log_criterion.log_user_statuses.create!(
+            status_name: attendance_status.criterion_status.name,
+            group_user_id: group_users.detect { |group_user|
+              group_user.user_id == attendance_status.attendance.user_id
+            }.id
+          )
         end
       end
       result
