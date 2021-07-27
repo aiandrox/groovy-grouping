@@ -1,7 +1,7 @@
 class ResultsController < ApplicationController
   def create
     @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
-    if setting_statuses?(@event)
+    if @event.setting_statuses?
       result = Result.group(@event)
       redirect_to event_result_path(@event.ref_uuid, result)
     else
@@ -12,9 +12,5 @@ class ResultsController < ApplicationController
   def show
     @event = Event.find_by!(ref_uuid: params[:event_ref_uuid])
     @result = @event.results.find_by!(uuid: params[:uuid])
-  end
-
-  def setting_statuses?(event)
-    event.attendances.joins(:attendance_statuses).count === event.criteria.count * event.attendances.count
   end
 end

@@ -37,6 +37,10 @@ class Event < ApplicationRecord
     edit_uuid
   end
 
+  def setting_statuses?
+    attendances.joins(:attendance_statuses).count === criteria.count * attendances.count
+  end
+
   private
 
   def set_uuids
