@@ -33,7 +33,7 @@ class Result < ApplicationRecord
 
       group_users = grouped_attendances(event).map do |attendances|
         group = result.groups.create!
-        attendances.each do |attendance|
+        attendances.map do |attendance|
           group.group_users.create!(user_name: attendance.user_name, user_id: attendance.user_id)
         end
       end.flatten
@@ -44,11 +44,13 @@ class Result < ApplicationRecord
           priority: criterion.priority
         )
         criterion.attendance_statuses.each do |attendance_status|
+          group_user = group_users.detect { |group_user|
+            group_user.user_id == attendance_status.attendance.user_id
+          }
+
           log_criterion.log_user_statuses.create!(
             status_name: attendance_status.criterion_status.name,
-            group_user_id: group_users.detect { |group_user|
-              group_user.user_id == attendance_status.attendance.user_id
-            }.id
+            group_user_id: group_user.id
           )
         end
       end
