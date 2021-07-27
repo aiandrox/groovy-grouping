@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: groovy_grouping_production
-  username: groovy_grouping
-  password: <%= ENV['GROOVY_GROUPING_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
