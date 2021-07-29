@@ -22,6 +22,21 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+## Dockerを使った開発環境の構築
+以下を順番に実行する。
+```
+$ docker compose build
+```
+```
+$ docker compose run --rm bundle exec rails db:create
+```
+```
+$ docker compose run --rm bundle exec rails db:migrate
+```
+```
+$ docker compose up
+```
+`localhost:3000`にアクセスしてトップが表示される。
 
 # groovy-grouping
 
