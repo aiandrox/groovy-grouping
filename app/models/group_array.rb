@@ -9,9 +9,7 @@ class GroupArray
     box = division + [modulo, 1].min # あまりも収める
 
     groups = array.in_groups(box)
-    groups.map.with_index { |group, index|
-      index.odd? ? group.reverse : group
-    }.transpose.map(&:compact)
+    groups.transpose.map(&:compact)
   end
 
   private
