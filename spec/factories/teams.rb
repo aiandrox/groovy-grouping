@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :team do
-    name { "MyString" }
-    ref_uuid { "MyString" }
-    edit_uuid { "MyString" }
+    name { FFaker::Lorem.word }
+    ref_uuid { SecureRandom.uuid }
+    edit_uuid { SecureRandom.uuid }
   end
 end

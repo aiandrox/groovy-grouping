@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :user do
-    name { "MyString" }
+    name { FFaker::NameJA.name }
     team
   end
 end

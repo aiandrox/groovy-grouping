@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :result do
-    uuid { "MyString" }
+    uuid { SecureRandom.uuid }
     group_count { 1 }
     event
   end

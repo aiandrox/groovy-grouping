@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :criterion_status do
-    name { "MyString" }
+    name { FFaker::Lorem.word }
     criterion
   end
 end

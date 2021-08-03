@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :criterion do
-    name { "MyString" }
+    name { FFaker::JobJA.title }
     priority { 1 }
     event
   end

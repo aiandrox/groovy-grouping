@@ -21,7 +21,7 @@
 #
 FactoryBot.define do
   factory :log_user_status do
-    status_name { "MyString" }
+    status_name { FFaker::Lorem.word }
     group_user
     log_criteria
   end
