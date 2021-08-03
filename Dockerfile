@@ -20,6 +20,7 @@ RUN apk update \
     && yarn install \
     && rails assets:precompile \
     && apk del .build-deps
+RUN apk add --update --no-cache less
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
