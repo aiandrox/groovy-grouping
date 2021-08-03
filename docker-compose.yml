@@ -12,6 +12,9 @@ services:
       - "3000:3000"
     volumes:
       - .:/myapp:delegated
+      - bundle:/usr/local/bundle
+    tty: true
+    stdin_open: true
 
   db:
     image: mysql:5.7
@@ -22,3 +25,4 @@ services:
 
 volumes:
   db:
+  bundle:
