@@ -1,25 +1,4 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+https://groovy-grouping.herokuapp.com/
 
 * ...
 ## Dockerを使った開発環境の構築
@@ -78,3 +57,7 @@ https://sekigime.herokuapp.com
 
 
 グループとチームは多対多でもいいかもしれん。
+
+## ER図
+![groovy-grouping](https://user-images.githubusercontent.com/44717752/148631125-961b64d1-709a-4ee6-b900-3fad41c8a0ae.png)
+https://drive.google.com/file/d/1X43xTWwp9sUog6tDtXVVWmZ8GDn-qoTQ/view
