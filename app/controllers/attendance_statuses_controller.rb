@@ -25,6 +25,6 @@ class AttendanceStatusesController < ApplicationController
   end
 
   def attendance_status_params
-    params.require(:attendance_status).permit(:attendance_id, :criterion_id, :criterion_status_id)
+    params.require(:attendance_status).permit(:attendance_id, :criterion_status_id)
   end
 end

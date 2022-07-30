@@ -19,7 +19,7 @@
 #
 class Criterion < ApplicationRecord
   has_many :criterion_statuses, dependent: :destroy
-  has_many :attendance_statuses, dependent: :destroy
+  has_many :attendance_statuses, through: :criterion_statuses
   belongs_to :event
 
   validates :name, presence: true, length: { maximum: 50 }

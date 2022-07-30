@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_134521) do
+ActiveRecord::Schema.define(version: 2022_07_30_061143) do
 
   create_table "attendance_statuses", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "attendance_id", null: false
     t.bigint "criterion_status_id", null: false
-    t.bigint "criterion_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["attendance_id"], name: "fk_rails_d4f476a0f0"
-    t.index ["criterion_id", "attendance_id"], name: "index_attendance_statuses_on_criterion_id_and_attendance_id", unique: true
+    t.index ["criterion_status_id", "attendance_id"], name: "index_attendance_statuses_on_criterion_status_and_attendance", unique: true
     t.index ["criterion_status_id"], name: "index_attendance_statuses_on_criterion_status_id"
   end
 
@@ -123,7 +122,6 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
   end
 
   add_foreign_key "attendance_statuses", "attendances"
-  add_foreign_key "attendance_statuses", "criteria"
   add_foreign_key "attendance_statuses", "criterion_statuses"
   add_foreign_key "attendances", "events"
   add_foreign_key "attendances", "users"

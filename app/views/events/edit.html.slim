@@ -46,7 +46,6 @@ h2 参加者を追加する
 
   - @event.criteria.order(:priority).each do |criterion|
     = f.fields_for 'attendance_statuses_attributes[]', AttendanceStatus.new, {} do |ff|
-      = ff.hidden_field :criterion_id, value: criterion.id
       = ff.label criterion.name
       = ff.select :criterion_status_id, criterion.criterion_statuses.order(:id).pluck(:name, :id)
       br
@@ -65,11 +64,10 @@ table
     tr
       td= attendance.user_name
       - @event.criteria.order(:priority).each do |criterion|
-        - attendance_status = attendance.attendance_statuses.find_by(criterion: criterion) || AttendanceStatus.new
+        - attendance_status = attendance.attendance_statuses.joins(:criterion_status).find_by(criterion_status: { criterion_id: criterion.id }) || AttendanceStatus.new
         td
           = form_with model: [@event, attendance_status] do |f|
             = f.hidden_field :attendance_id, value: attendance.id
-            = f.hidden_field :criterion_id, value: criterion.id
             = f.select :criterion_status_id, criterion.criterion_statuses.order(:id).pluck(:name, :id), include_blank: '未設定'
             = f.submit
       td= link_to '不参加', event_attendance_path(@event, attendance.id), method: :delete

@@ -27,7 +27,6 @@ class AttendancesController < ApplicationController
     params.require(:attendance).permit(
       :user_id,
       attendance_statuses_attributes: [
-        :criterion_id,
         :attendance_id,
         :criterion_status_id,
       ]

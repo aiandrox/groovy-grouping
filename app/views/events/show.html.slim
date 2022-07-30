@@ -20,7 +20,7 @@ table
     tr
       td= attendance.user_name
       - @event.criteria.order(:priority).each do |criterion|
-        - attendance_status = attendance.attendance_statuses.find_by(criterion: criterion)
+        - attendance_status = attendance.attendance_statuses.joins(:criterion_status).find_by(criterion_status: { criterion_id: criterion.id })
         td= attendance_status&.criterion_status&.name || '未設定'
 
 = link_to 'グループ分けする', event_results_path(@event.ref_uuid), method: :post
