@@ -123,10 +123,16 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.0)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     msgpack (1.4.2)
     mysql2 (0.5.3)
     nio4r (2.5.7)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    nokogiri (1.11.7-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.11.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.11.7-x86_64-linux)
@@ -300,6 +306,8 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  aarch64-linux-musl
+  arm64-darwin-21
   x86_64-darwin-20
   x86_64-linux
 
@@ -341,4 +349,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.24
+   2.2.26

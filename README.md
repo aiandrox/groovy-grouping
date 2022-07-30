@@ -7,10 +7,10 @@ https://groovy-grouping.herokuapp.com/
 $ docker compose build
 ```
 ```
-$ docker compose run --rm bundle exec rails db:create
+$ docker compose run --rm app bundle exec rails db:create
 ```
 ```
-$ docker compose run --rm bundle exec rails db:migrate
+$ docker compose run --rm app bundle exec rails db:migrate
 ```
 ```
 $ docker compose up

@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_07_25_134521) do
 
-  create_table "attendance_statuses", charset: "utf8mb4", force: :cascade do |t|
+  create_table "attendance_statuses", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "attendance_id", null: false
     t.bigint "criterion_status_id", null: false
     t.bigint "criterion_id", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["criterion_status_id"], name: "index_attendance_statuses_on_criterion_status_id"
   end
 
-  create_table "attendances", charset: "utf8mb4", force: :cascade do |t|
+  create_table "attendances", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["user_id", "event_id"], name: "index_attendances_on_user_id_and_event_id", unique: true
   end
 
-  create_table "criteria", charset: "utf8mb4", force: :cascade do |t|
+  create_table "criteria", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.integer "priority", null: false
     t.bigint "event_id", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["event_id", "priority"], name: "index_criteria_on_event_id_and_priority", unique: true
   end
 
-  create_table "criterion_statuses", charset: "utf8mb4", force: :cascade do |t|
+  create_table "criterion_statuses", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "criterion_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["criterion_id", "name"], name: "index_criterion_statuses_on_criterion_id_and_name", unique: true
   end
 
-  create_table "events", charset: "utf8mb4", force: :cascade do |t|
+  create_table "events", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.integer "group_count"
     t.string "ref_uuid", null: false
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["team_id"], name: "index_events_on_team_id"
   end
 
-  create_table "group_users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "group_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "user_name", null: false
     t.bigint "group_id", null: false
     t.bigint "user_id", null: false
@@ -70,14 +70,14 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["user_id"], name: "index_group_users_on_user_id"
   end
 
-  create_table "groups", charset: "utf8mb4", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "result_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["result_id"], name: "index_groups_on_result_id"
   end
 
-  create_table "log_criteria", charset: "utf8mb4", force: :cascade do |t|
+  create_table "log_criteria", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.integer "priority", null: false
     t.bigint "result_id", null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["result_id"], name: "index_log_criteria_on_result_id"
   end
 
-  create_table "log_user_statuses", charset: "utf8mb4", force: :cascade do |t|
+  create_table "log_user_statuses", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "status_name", null: false
     t.bigint "group_user_id", null: false
     t.bigint "log_criterion_id", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["log_criterion_id"], name: "index_log_user_statuses_on_log_criterion_id"
   end
 
-  create_table "results", charset: "utf8mb4", force: :cascade do |t|
+  create_table "results", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "group_count", null: false
     t.string "uuid", null: false
     t.bigint "event_id", null: false
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.index ["event_id"], name: "index_results_on_event_id"
   end
 
-  create_table "teams", charset: "utf8mb4", force: :cascade do |t|
+  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.string "ref_uuid", null: false
     t.string "edit_uuid", null: false
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_134521) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "active", default: true, null: false
     t.bigint "team_id", null: false
