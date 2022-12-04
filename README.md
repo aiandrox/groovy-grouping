@@ -61,3 +61,59 @@ https://sekigime.herokuapp.com
 ## ER図
 ![groovy-grouping](https://user-images.githubusercontent.com/44717752/148631125-961b64d1-709a-4ee6-b900-3fad41c8a0ae.png)
 https://drive.google.com/file/d/1X43xTWwp9sUog6tDtXVVWmZ8GDn-qoTQ/view
+
+```mermaid
+erDiagram
+
+teams ||--o{ users: ""
+users ||--o{ attendances: ""
+events ||--o{ attendances: ""
+events ||--o{ criteria: ""
+criteria ||--o{ criterion_statuses: ""
+criterion_statuses ||--o{ attendance_statuses: ""
+criteria ||--o{ attendance_statuses: ""
+attendances ||--o{ attendance_statuses: ""
+events ||--o{ results: ""
+results ||--o{ groups: ""
+groups ||--o{ group_users: ""
+users ||--o{ group_users: ""
+group_users ||--o{ log_user_statuses: ""
+log_criteria ||--o{ log_user_statuses: ""
+
+teams {
+  string name
+  string ref_uuid
+  string edit_uuid
+}
+users {
+  string name
+  boolean active
+}
+events {
+  string name
+  integer group_count
+  string edit_uuid
+  string ref_uuid
+}
+results {
+  string uuid
+  integer group_count
+}
+group_users {
+  string user_name
+}
+criteria {
+  string name
+  integer priority
+}
+criterion_statuses {
+  string name
+}
+log_criteria {
+  string name
+  integer priority
+}
+log_user_statuses {
+  string status_name
+}
+```
