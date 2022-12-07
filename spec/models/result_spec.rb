@@ -95,6 +95,7 @@ RSpec.describe Result, type: :model do
       end
 
       context '7人・条件2つ（2:2:3）' do
+        let!(:event) { create(:event, team: team, group_count: 3) }
         let!(:criterion) { create(:criterion, event: event) }
         let!(:criterion_status_1) { create(:criterion_status, criterion: criterion) }
         let!(:criterion_status_2) { create(:criterion_status, criterion: criterion) }

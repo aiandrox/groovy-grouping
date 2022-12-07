@@ -28,7 +28,7 @@ class Result < ApplicationRecord
       result = create!(
         group_count: event.group_count,
         uuid: SecureRandom.urlsafe_base64(9),
-        event_id: event.id
+        event_id: event.id,
       )
 
       group_users = grouped_attendances(event).map do |attendances|
@@ -38,19 +38,20 @@ class Result < ApplicationRecord
         end
       end.flatten
 
+      # ログ作成
       event.criteria.each do |criterion|
         log_criterion = result.log_criteria.create!(
           name: criterion.name,
-          priority: criterion.priority
+          priority: criterion.priority,
         )
         criterion.attendance_statuses.each do |attendance_status|
-          group_user = group_users.detect { |group_user|
+          group_user = group_users.detect do |group_user|
             group_user.user_id == attendance_status.attendance.user_id
-          }
+          end
 
           log_criterion.log_user_statuses.create!(
             status_name: attendance_status.criterion_status.name,
-            group_user_id: group_user.id
+            group_user_id: group_user.id,
           )
         end
       end
@@ -60,12 +61,11 @@ class Result < ApplicationRecord
 
   def self.grouped_attendances(event)
     if event.criteria.present?
-      attendances_hash = event.attendances.joins(attendance_statuses: :criterion_status).group_by(&:criterion_status_ids)
-      attendances = attendances_hash.values.sort_by { |attendances|
-        attendances.size % event.group_count
-      }.map { |attendances|
-        attendances.shuffle
-      }.flatten
+      attendances_hash = event.attendances.joins(:criterion_statuses).group_by(&:criterion_status_ids)
+
+      attendances = attendances_hash.values.sort_by do |attendances|
+        [attendances.size % event.group_count, rand(100)] # 余りの数順。余りが同じ場合はランダム
+      end.map(&:shuffle).flatten
       group_array = GroupArray.new(attendances)
       group_array.divide_smooth(event.group_count)
     else

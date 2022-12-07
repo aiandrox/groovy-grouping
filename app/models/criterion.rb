@@ -44,6 +44,6 @@ class Criterion < ApplicationRecord
   private
 
   def criterion_count_validate
-    errors.add(:base, "条件は1つしか設定できません") if event.criteria.count >= 1
+    errors.add(:base, '条件は1つしか設定できません') if event.criteria.count >= 1
   end
 end

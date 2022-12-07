@@ -3,12 +3,10 @@ class GroupArray
     @array = array
   end
 
-  def divide_smooth(number)
-    division = array.size.div number
-    modulo = array.size % number
-    box = division + [modulo, 1].min # あまりも収める
+  def divide_smooth(group_count)
+    raise ArgumentError, '配列の長さより指定グループ数が多いです' if array.size < group_count
 
-    groups = array.in_groups(box)
+    groups = array.in_groups_of(group_count)
     groups.transpose.map(&:compact)
   end
 
