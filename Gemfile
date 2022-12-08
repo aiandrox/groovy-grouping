@@ -10,7 +10,8 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0'
 gem 'rails-i18n'
 gem 'sass-rails', '>= 6'
-gem 'turbolinks', '~> 5'
+gem "stimulus-rails"
+gem "turbo-rails"
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker', '~> 5.0'
 gem 'slim-rails'
