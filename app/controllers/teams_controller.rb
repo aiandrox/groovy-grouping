@@ -9,7 +9,10 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def edit; end
+  def edit
+    @event = @team.events.build
+    @events = Event.where(team: @team)
+  end
 
   def create
     @team = Team.new(team_params)

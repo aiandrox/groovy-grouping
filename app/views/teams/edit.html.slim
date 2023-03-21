@@ -12,14 +12,6 @@ p
 
 == render 'teams/form'
 
-h2 ユーザーを追加する
-
-= form_with model: User.new, url: team_users_path(@team) do |f|
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions = f.submit
-
 h2 所属ユーザー
 
 - @team.users.active.each do |user|
@@ -27,8 +19,31 @@ h2 所属ユーザー
   = link_to '削除', team_user_path(@team, user.id), method: :delete
   br
 
-p= link_to '新規イベント作成', new_team_event_path(@team)
 
-- @team.events.each do |event|
+= form_with model: User.new, url: team_users_path(@team) do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit
+
+h2 新規イベント
+
+= form_with model: @event, url: team_events_path(@team) do |f|
+  - if @event.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@event.errors.count, 'error')} prohibited this event from being saved:"
+      ul
+        - @event.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .actions = f.submit
+
+h3 イベント一覧
+
+- @events.each do |event|
   = link_to event.name, edit_event_path(event)
   br
