@@ -59,51 +59,67 @@ class Result < ApplicationRecord
     end
   end
 
+
 def self.grouped_attendances(event)
   if event.criteria.present?
     attendances = event.attendances.includes(:criterion_statuses).to_a
-    attendances.shuffle!
 
-    groups = Array.new(event.group_count) { [] }
+    groups = assign_attendances_to_groups(attendances, event.group_count, event.criteria)
 
-    # priorityの降順でcriteriaをソート
-    sorted_criteria = event.criteria.sort_by(&:priority).reverse
+    max_group_size = groups.max_by(&:size).size
+    min_group_size = groups.min_by(&:size).size
 
-    sorted_criteria.each do |criterion|
-      # 各criterionに対応する出席を取得
-      criterion_attendances = attendances.select do |attendance|
-        attendance.criterion_statuses.any? { |status| status.criterion_id == criterion.id }
-      end
-
-      # グループに出席を追加
-      criterion_attendances.each do |attendance|
-        # 各グループで同じcriterion_statusが最小のものを選択
-        target_group = groups.min_by do |group|
-          group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
-        end
-
-        # グループの人数が均一になるように出席を追加
-        min_group_size = groups.min_by(&:size).size
-        target_group = groups.select { |group| group.size <= min_group_size + 1 }.min_by do |group|
-          group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
-        end
-
-        target_group << attendance
-        attendances.delete(attendance) # 重複するattendanceを削除
-      end
+    # グループの人数の最大人数と最少人数の差が2人以上の場合は再帰
+    if max_group_size - min_group_size >= 2
+      grouped_attendances(event)
+    else
+      groups
     end
-
-    # 未割り当ての出席を追加
-    attendances.each do |attendance|
-      min_size_group = groups.min_by(&:size)
-      min_size_group << attendance
-    end
-
-    groups
   else
     event.attendances.shuffle.in_groups(event.group_count, false)
   end
 end
+
+def self.assign_attendances_to_groups(attendances, group_count, criteria)
+  attendances.shuffle!
+
+  groups = Array.new(group_count) { [] }
+  sorted_criteria = criteria.sort_by(&:priority).reverse
+
+  sorted_criteria.each do |criterion|
+    criterion_attendances = attendances.select do |attendance|
+      attendance.criterion_statuses.any? { |status| status.criterion_id == criterion.id }
+    end
+
+    assign_criterion_attendances(groups, criterion_attendances)
+    attendances -= criterion_attendances
+  end
+
+  assign_remaining_attendances(groups, attendances)
+  groups
+end
+
+def self.assign_criterion_attendances(groups, criterion_attendances)
+  criterion_attendances.each do |attendance|
+    target_group = select_target_group(groups, attendance)
+    target_group << attendance
+  end
+end
+
+def self.assign_remaining_attendances(groups, attendances)
+  attendances.each do |attendance|
+    target_group = select_target_group(groups, attendance)
+    target_group << attendance
+  end
+end
+
+def self.select_target_group(groups, attendance)
+  min_group_size = groups.min_by(&:size).size
+  groups.select { |group| group.size <= min_group_size + 1 }.min_by do |group|
+    group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
+  end
+end
+
 
   def to_param
     uuid
