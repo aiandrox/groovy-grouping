@@ -61,13 +61,21 @@ class Result < ApplicationRecord
 
   def self.grouped_attendances(event)
     if event.criteria.present?
-      attendances_hash = event.attendances.joins(:criterion_statuses).group_by(&:criterion_status_ids)
+    attendances = event.attendances.includes(:criterion_statuses).to_a
+    attendances.shuffle!
 
-      attendances = attendances_hash.values.sort_by do |attendances|
-        [attendances.size % event.group_count, rand(100)] # 余りの数順。余りが同じ場合はランダム
-      end.map(&:shuffle).flatten
-      group_array = GroupArray.new(attendances)
-      group_array.divide_smooth(event.group_count)
+    groups = Array.new(event.group_count) { [] }
+
+    attendances.each do |attendance|
+      # 各グループで同じcriterion_statusが最小のものを選択
+      target_group = groups.min_by do |group|
+        group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
+      end
+
+      target_group << attendance
+    end
+
+    groups
     else
       event.attendances.shuffle.in_groups(event.group_count, false)
     end
