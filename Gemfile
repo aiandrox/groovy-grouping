@@ -27,6 +27,7 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'rails-mermaid_erd'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen', '~> 3.3'
