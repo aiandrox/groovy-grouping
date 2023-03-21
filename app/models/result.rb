@@ -59,27 +59,51 @@ class Result < ApplicationRecord
     end
   end
 
-  def self.grouped_attendances(event)
-    if event.criteria.present?
+def self.grouped_attendances(event)
+  if event.criteria.present?
     attendances = event.attendances.includes(:criterion_statuses).to_a
     attendances.shuffle!
 
     groups = Array.new(event.group_count) { [] }
 
-    attendances.each do |attendance|
-      # 各グループで同じcriterion_statusが最小のものを選択
-      target_group = groups.min_by do |group|
-        group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
+    # priorityの降順でcriteriaをソート
+    sorted_criteria = event.criteria.sort_by(&:priority).reverse
+
+    sorted_criteria.each do |criterion|
+      # 各criterionに対応する出席を取得
+      criterion_attendances = attendances.select do |attendance|
+        attendance.criterion_statuses.any? { |status| status.criterion_id == criterion.id }
       end
 
-      target_group << attendance
+      # グループに出席を追加
+      criterion_attendances.each do |attendance|
+        # 各グループで同じcriterion_statusが最小のものを選択
+        target_group = groups.min_by do |group|
+          group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
+        end
+
+        # グループの人数が均一になるように出席を追加
+        min_group_size = groups.min_by(&:size).size
+        target_group = groups.select { |group| group.size <= min_group_size + 1 }.min_by do |group|
+          group.count { |group_attendance| attendance.criterion_status_ids == group_attendance.criterion_status_ids }
+        end
+
+        target_group << attendance
+        attendances.delete(attendance) # 重複するattendanceを削除
+      end
+    end
+
+    # 未割り当ての出席を追加
+    attendances.each do |attendance|
+      min_size_group = groups.min_by(&:size)
+      min_size_group << attendance
     end
 
     groups
-    else
-      event.attendances.shuffle.in_groups(event.group_count, false)
-    end
+  else
+    event.attendances.shuffle.in_groups(event.group_count, false)
   end
+end
 
   def to_param
     uuid
